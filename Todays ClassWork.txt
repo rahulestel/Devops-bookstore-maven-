@@ -1,0 +1,206 @@
+-------------------------------------------------------------------
+Clone the Bookstore Project in EC2 , Build with Maven and Run It
+-------------------------------------------------------------------
+1) Connect to EC2
+
+ssh ubuntu@52.66.201.180
+
+2) Clone the Project
+
+git clone git@github.com:DandesClasses/myjlc-bookstore-maven.git
+
+We need to install the following 3 in EC2 
+-------------------------
+MYSQL , JAVA ,MAVEN 
+
+-------------------------------------
+3) Install MySQL on Ubuntu
+
+sudo bash
+
+apt install mysql-server
+
+which mysql
+
+/usr/bin/mysql
+
+mysql --version
+
+mysql -u root -p
+mysql
+
+show databases;
+
+create database mybookstoredb;
+
+use mybookstoredb;
+
+create table mybooks(
+bid int primary key auto_increment,
+bname char(25),
+author char(25),
+price double,
+category char(15),
+pub char(15)
+);
+
+insert into mybooks values(101,'Master DevOps','Srinivas Dande',15000,'Hello','Hello');
+insert into mybooks values(102,'Master Spring Boot','Srinivas Dande',15000,'Hello','Hello');
+insert into mybooks values(103,'Master MicroServices','Srinivas Dande',15000,'Hello','Hello');
+insert into mybooks values(104,'Master Angular','Srinivas Dande',15000,'Hello','Hello');
+
+insert into mybooks values(105,'Master React','Srinivas Dande',15000,'Hello','Hello');
+
+
+insert into mybooks values(106,'Master DSA','Srinivas Dande',15000,'Hello','Hello');
+
+===============================
+create user 'srinivas'@'%' identified by 'srinivas';
+
+GRANT ALL ON *.* TO 'srinivas'@'%';
+
+flush privileges;
+
+show grants for srinivas;
+===============================
+
+4) Install Java
+-----------------------
+apt install openjdk-8-jdk
+
+apt install openjdk-9-jdk
+
+which java
+/usr/bin/java
+
+java -version
+openjdk version "1.8.0_292"
+
+
+5) Install Maven
+----------------------
+apt install maven
+
+mvn -version
+Apache Maven 3.6.0
+
+which mvn
+/usr/bin/mvn
+
+6) Run Boot Application with Maven
+-------------------------------------------
+A) Run maven Build
+
+mvn clean compile package
+
+B) Run the FAT Jar
+
+java -jar target/myjlcapp.jar
+
+C) Open the Browser and hot the following
+
+http://52.66.201.180:12345
+
+
+-------------------------------------------------------------------
+Clone the Bookstore Project in EC2 , Build with Gradle and Run It
+-------------------------------------------------------------------
+1) Connect to EC2
+2) Clone the Project
+
+git clone git@github.com:DandesClasses/myjlc-bookstore-gradle.git
+
+-------------------------------------
+3) Install MySQL
+
+We have mysql already Installed.
+
+4) Install Java
+-----------------------
+
+We have mysql already Installed.
+
+5) Install Gradle
+----------------------
+apt install gradle
+
+gradle -version
+Gradle 4.4.1
+
+ant -version
+Apache Ant(TM) version 1.10.5 compiled on March 28 2019
+
+which gradle
+/usr/bin/gradle
+
+
+5A) Install Gradle ( Latest Version)
+-------------------------------------------
+wget https://services.gradle.org/distributions/gradle-7.2-bin.zip -P /tmp
+
+unzip -d /opt/gradle /tmp/gradle-*.zip
+
+vi /etc/profile.d/gradle.sh
+export GRADLE_HOME=/opt/gradle/gradle-7.2
+export PATH=${GRADLE_HOME}/bin:${PATH}
+
+source /etc/profile.d/gradle.sh
+
+$GRADLE_HOME
+
+which gradle
+
+gradle -version
+
+
+6) Run Boot Application with Gradle 
+-------------------------------------------
+A) Run maven Build
+
+gradle clean build
+
+B) Run the FAT Jar
+
+java -jar build/libs/myjlc-bookstore-gradle-1.0.jar
+
+C) Open the Browser and hot the following
+
+http://52.66.201.180:12345
+
+
+
+
+========================
+Internal Work
+=============================
+ll /usr/bin/java
+
+ /usr/bin/java -> /etc/alternatives/java*
+
+ll /etc/alternatives/java
+
+/etc/alternatives/java -> /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java* 
+
+ll /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
+/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+-----------------------------------------------------
+ll /usr/bin/mvn
+/usr/bin/mvn -> /etc/alternatives/mvn*
+
+ll /etc/alternatives/mvn
+/etc/alternatives/mvn -> /usr/share/maven/bin/mvn*
+
+ll /usr/share/maven/bin/mvn
+/usr/share/maven/bin/mvn
+----------------------------------------------
+ll /usr/bin/gradle
+/usr/bin/gradle -> ../share/gradle/bin/gradle
+
+ll /usr/share/gradle/bin/gradle
+/usr/share/gradle/bin/gradle*
+
+
+
+
+<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
